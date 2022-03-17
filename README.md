@@ -6,5 +6,5 @@ To this project I used:
 so if you want to run it on your device just clone this repository and type: 
 'npm install' to install missing packages.
 
-and then type 'npm start' to run this page. 
+and then type 'npm start' to run this project.
 
