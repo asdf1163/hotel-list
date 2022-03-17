@@ -51,7 +51,7 @@ const HotelImages: React.FC<{ hotelImages: object[]; hotelId: string }> = ({
         className="container__main__image--resolution"
         style={{ transform: `translateX(${position}%)` }}
       >
-        {hotelImages?.map((image: any, index: number) => {
+        {hotelImages?.map((image: { url?: string }, index: number) => {
           return (
             <div
               className="container__main__image--box"

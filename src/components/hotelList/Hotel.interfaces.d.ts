@@ -8,3 +8,7 @@ export interface IhotelData {
     town: string;
     country: string;
 }
+
+export interface IroomProps {
+    occupancy: { maxAdults: number; maxChildren: number };
+}

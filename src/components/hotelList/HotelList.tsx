@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { getHotelList, getHotelRooms } from "../../common/apis/apiHotelList";
 import HotelBox from "./HotelList/HotelBox";
 import "./hotelList.css";
-import { IhotelData } from "./Hotel.interfaces";
+import { IhotelData, IroomProps } from "./Hotel.interfaces";
 import HotelNotFound from "./HotelNotFound";
 import { IinitalState as FilterOptions } from "../../common/redux/index";
 import HotelPending from "./HotelPending";
@@ -28,7 +28,7 @@ const HotelList = () => {
 
   const apiRoom = useCallback(() => {
     if (hotelList) {
-      return hotelList.map(async (rooms: any) => {
+      return hotelList.map(async (rooms: { id: string }) => {
         const data = await getHotelRooms(rooms.id);
         return setRoomList((prev: object[]) => [...prev, data.data]);
       });
@@ -40,15 +40,13 @@ const HotelList = () => {
   }, [apiHotel, apiRoom]);
 
   const checkAvibilityRooms = () => {
-    const result = roomList.map((room: any) =>
-      room.rooms.filter(
-        (room: { occupancy: { maxAdults: number; maxChildren: number } }) => {
-          return (
-            filterOptions.adults <= room.occupancy.maxAdults &&
-            filterOptions.children <= room.occupancy.maxChildren
-          );
-        }
-      )
+    const result = roomList.map((roomList: any) =>
+      roomList.rooms.filter((room: IroomProps) => {
+        return (
+          filterOptions.adults <= room.occupancy.maxAdults &&
+          filterOptions.children <= room.occupancy.maxChildren
+        );
+      })
     );
     return result;
   };
